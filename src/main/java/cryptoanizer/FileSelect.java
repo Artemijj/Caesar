@@ -7,13 +7,10 @@ import java.io.File;
 
 public class FileSelect implements ActionListener {
 
-    public int key;
-    public String filePath;
-    public String encryptedTxt;
-    public String referenceTxt;
-    public CryptoanizerCaesar cryptoanizerCaesar = new CryptoanizerCaesar();
+//    private String filePath;
+    private CryptoanizerCaesar cryptoanizerCaesar = new CryptoanizerCaesar();
 //    public CryptoanizerCaesarGUI ccg = new CryptoanizerCaesarGUI();
-    public ICryptoanizerCaesarGUI iccgui;
+    private ICryptoanizerCaesarGUI iccgui;
 
     public FileSelect(ICryptoanizerCaesarGUI iccgui) {
         this.iccgui = iccgui;
@@ -27,11 +24,15 @@ public class FileSelect implements ActionListener {
                     File file = fileopen.getSelectedFile();
 //                    System.out.println(file.toString());
 //                    ccg.fileLabel.setText(file.getAbsolutePath());
-                    iccgui.setFileName(file.getAbsolutePath());
-                    filePath = file.getAbsolutePath();
-                    System.out.println(filePath);
-                    cryptoanizerCaesar.readFileToString(filePath);
-///                    ccg.textArea.setText(cryptoanizerCaesar.sourceTxt);
+                    iccgui.setFileLabel(file.getAbsolutePath());
+//                    eFileLabel.setText(file.getAbsolutePath());
+                    iccgui.setFilePath(file.getAbsolutePath());
+//                    System.out.println(filePath);
+                    cryptoanizerCaesar.readFileToString(iccgui.getFilePath());
+                    iccgui.setLoadedTxt(cryptoanizerCaesar.getSourceTxt());
+///                    iccgui.textArea.setText(cryptoanizerCaesar.sourceTxt);
+                    iccgui.setTextArea(cryptoanizerCaesar.getSourceTxt());
+                    iccgui.setKeyLabel("Set key.");
                 }
     }
 }

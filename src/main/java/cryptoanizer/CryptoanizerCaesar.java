@@ -13,12 +13,11 @@ public class CryptoanizerCaesar {
     private static String helpMessage =
             "-c <filename>  - Копирование файла.\n" +
                     "-e <key> <filename>  - Шифрование файла (0 < key <= 40).\n" +
-                    "-e <-key> <filename>  - Дешифрование файла (0 > key >= -40).\n" +
+                    "-d <-key> <filename>  - Дешифрование файла (0 < key <= 40).\n" +
                     "-b <filename>  - Дешифрование файла (bruteforce).\n" +
                     "-s <cryptFilename> <planeFilename  - Дешифрование файла методом статистического анализа";
-    public String sourceTxt;
-    public String encodeTxt;
-//    public String decodeTxt;
+    private String sourceTxt;
+    private String encodeTxt;
 
     public static void main(String[] args) {
         CryptoanizerCaesar cryptC = new CryptoanizerCaesar();
@@ -181,5 +180,21 @@ public class CryptoanizerCaesar {
             }
         }
         return maxIndex;
+    }
+
+    public String getSourceTxt() {
+        return sourceTxt;
+    }
+
+    public String getEncodeTxt() {
+        return encodeTxt;
+    }
+
+    public void setSourceTxt(String text) {
+        sourceTxt = text;
+    }
+
+    public void setEncodeTxt(String text) {
+        encodeTxt = text;
     }
 }
