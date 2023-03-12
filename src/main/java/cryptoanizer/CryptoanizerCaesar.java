@@ -11,11 +11,11 @@ public class CryptoanizerCaesar {
             "Проверьте правильность введённых параметров.\n" +
                     "Для получения справки введите -help";
     private static String helpMessage =
-            "-c <filename>  - Копирование файла.\n" +
-                    "-e <key> <filename>  - Шифрование файла (0 < key <= 40).\n" +
-                    "-d <-key> <filename>  - Дешифрование файла (0 < key <= 40).\n" +
-                    "-b <filename>  - Дешифрование файла (bruteforce).\n" +
-                    "-s <cryptFilename> <planeFilename  - Дешифрование файла методом статистического анализа";
+        "-c <filename>  - Копирование файла.\n" +
+        "-e <key> <filename>  - Шифрование файла (0 < key <= 40).\n" +
+        "-d <-key> <filename>  - Дешифрование файла (0 < key <= 40).\n" +
+        "-b <filename>  - Дешифрование файла (bruteforce).\n" +
+        "-s <cryptFilename> <planeFilename  - Дешифрование файла методом статистического анализа";
     private String sourceTxt;
     private String encodeTxt;
 
