@@ -7,13 +7,12 @@ import java.io.File;
 
 public class FileSelect implements ActionListener {
 
-//    private String filePath;
-    private CryptoanizerCaesar cryptoanizerCaesar = new CryptoanizerCaesar();
-//    public CryptoanizerCaesarGUI ccg = new CryptoanizerCaesarGUI();
+    private ICryptoanizerCaesar icc;
     private ICryptoanizerCaesarGUI iccgui;
 
     public FileSelect(ICryptoanizerCaesarGUI iccgui) {
         this.iccgui = iccgui;
+//        this.icc = icc;
     }
 
     @Override
@@ -22,16 +21,11 @@ public class FileSelect implements ActionListener {
                 int ret = fileopen.showDialog(null, "Открыть файл");
                 if (ret == JFileChooser.APPROVE_OPTION) {
                     File file = fileopen.getSelectedFile();
-//                    System.out.println(file.toString());
-//                    ccg.fileLabel.setText(file.getAbsolutePath());
                     iccgui.setFileLabel(file.getAbsolutePath());
-//                    eFileLabel.setText(file.getAbsolutePath());
                     iccgui.setFilePath(file.getAbsolutePath());
-//                    System.out.println(filePath);
-                    cryptoanizerCaesar.readFileToString(iccgui.getFilePath());
-                    iccgui.setLoadedTxt(cryptoanizerCaesar.getSourceTxt());
-///                    iccgui.textArea.setText(cryptoanizerCaesar.sourceTxt);
-                    iccgui.setTextArea(cryptoanizerCaesar.getSourceTxt());
+                    icc.readFileToString(iccgui.getFilePath());
+//                    icc.setSourceTxt(icc.getSourceTxt());
+                    iccgui.setTextArea(icc.getSourceTxt());
                     iccgui.setKeyLabel("Set key.");
                 }
     }

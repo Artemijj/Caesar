@@ -17,11 +17,12 @@ public class ResetButtonPress implements ActionListener {
         iccgui.setKeyLabel("Set key.");
         iccgui.setKeyField("");
         iccgui.setReferenceLabel("Select the file for the sample.");
-        iccgui.setLoadedTxt("");
-        iccgui.setReferenceTxt("");
+//        iccgui.setLoadedTxt("");
+//        iccgui.setReferenceTxt("");
         iccgui.setFilePath("");
         iccgui.setReferencePath("");
         cryptoanizerCaesar.setSourceTxt("");
         cryptoanizerCaesar.setEncodeTxt("");
+        cryptoanizerCaesar.setReferenceTxt("");
     }
 }

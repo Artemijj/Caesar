@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class StatButtonPress implements ActionListener {
     private ICryptoanizerCaesarGUI iccgui;
-    private CryptoanizerCaesar cryptoanizerCaesar = new CryptoanizerCaesar();
+    private ICryptoanizerCaesar icc;//cryptoanizerCaesar = new CryptoanizerCaesar();
     private int key;
 
     public StatButtonPress(ICryptoanizerCaesarGUI iccgui) {
@@ -13,10 +13,10 @@ public class StatButtonPress implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        key = cryptoanizerCaesar.statAnaliz(iccgui.getLoadedTxt(), iccgui.getReferenceTxt());
-        cryptoanizerCaesar.encryptString(iccgui.getLoadedTxt(), -key);
-        cryptoanizerCaesar.saveStringToFile(cryptoanizerCaesar.getEncodeTxt());
-        iccgui.setTextArea(cryptoanizerCaesar.getEncodeTxt());
+        key = icc.statAnaliz(icc.getSourceTxt(), icc.getReferenceTxt());
+        icc.encryptString(icc.getSourceTxt(), -key);
+        icc.saveStringToFile(icc.getEncodeTxt());
+        iccgui.setTextArea(icc.getEncodeTxt());
         iccgui.setKeyField(String.valueOf(key));
         iccgui.setKeyLabel("Founded key -");
     }

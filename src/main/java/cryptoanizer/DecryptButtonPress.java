@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class DecryptButtonPress implements ActionListener {
     private ICryptoanizerCaesarGUI iccgui;
-    private CryptoanizerCaesar cryptoanizerCaesar = new CryptoanizerCaesar();
+    private ICryptoanizerCaesar icc;//cryptoanizerCaesar = new CryptoanizerCaesar();
     private int key;
 
     public DecryptButtonPress(ICryptoanizerCaesarGUI iccgui) {
@@ -16,12 +16,13 @@ public class DecryptButtonPress implements ActionListener {
         String getValue = iccgui.getKeyValue();
         key = Integer.parseInt(getValue);
         if (key > 0 && key < 41) {
-            cryptoanizerCaesar.readFileToString(iccgui.getFilePath());
-            cryptoanizerCaesar.encryptString(iccgui.getLoadedTxt(), -Math.abs(key));
-            cryptoanizerCaesar.saveStringToFile(cryptoanizerCaesar.getEncodeTxt());
-            iccgui.setTextArea(cryptoanizerCaesar.getEncodeTxt());
+            icc.readFileToString(iccgui.getFilePath());
+            icc.encryptString(icc.getSourceTxt(), -Math.abs(key));
+            icc.saveStringToFile(icc.getEncodeTxt());
+            iccgui.setTextArea(icc.getEncodeTxt());
         } else {
-            iccgui.alertWindow();
+//            iccgui.alertWindow();
+            iccgui.alertDialog();
         }
     }
 }

@@ -5,19 +5,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class CryptoanizerCaesar {
+public class CryptoanizerCaesar implements ICryptoanizerCaesar{
     private static String alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? ";
     private static String errorMessage =
-            "Проверьте правильность введённых параметров.\n" +
-                    "Для получения справки введите -help";
+        "Проверьте правильность введённых параметров.\n" +
+        "Для получения справки введите -help";
     private static String helpMessage =
         "-c <filename>  - Копирование файла.\n" +
         "-e <key> <filename>  - Шифрование файла (0 < key <= 40).\n" +
-        "-d <-key> <filename>  - Дешифрование файла (0 < key <= 40).\n" +
+        "-d <key> <filename>  - Дешифрование файла (0 < key <= 40).\n" +
         "-b <filename>  - Дешифрование файла (bruteforce).\n" +
-        "-s <cryptFilename> <planeFilename  - Дешифрование файла методом статистического анализа";
+        "-s <cryptFilename> <referenceFilename>  - Дешифрование файла методом статистического анализа";
     private String sourceTxt;
     private String encodeTxt;
+    private String referenceTxt;
+    private ICryptoanizerCaesarGUI iccgui;
 
     public static void main(String[] args) {
         CryptoanizerCaesar cryptC = new CryptoanizerCaesar();
@@ -164,7 +166,7 @@ public class CryptoanizerCaesar {
         }
     }
 
-    private int maxSymInd(String txt) {
+    public int maxSymInd(String txt) {
         int max = 0;
         int maxIndex = 0;
         int[] arr = new int[alphabet.length()];
@@ -196,5 +198,13 @@ public class CryptoanizerCaesar {
 
     public void setEncodeTxt(String text) {
         encodeTxt = text;
+    }
+
+    public String getReferenceTxt() {
+        return referenceTxt;
+    }
+
+    public void setReferenceTxt(String text) {
+        referenceTxt = text;
     }
 }
