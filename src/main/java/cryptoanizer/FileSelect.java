@@ -7,11 +7,11 @@ import java.io.File;
 
 public class FileSelect implements ActionListener {
 
-    private ICryptoanizerCaesar icc;
-    private ICryptoanizerCaesarGUI iccgui;
+    private ICryptoanizerCaesarConsole iccConsole;
+    private ICryptoanizerCaesarGUI iccGUI;
 
-    public FileSelect(ICryptoanizerCaesarGUI iccgui) {
-        this.iccgui = iccgui;
+    public FileSelect(ICryptoanizerCaesarGUI iccGUI) {
+        this.iccGUI = iccGUI;
 //        this.icc = icc;
     }
 
@@ -21,12 +21,11 @@ public class FileSelect implements ActionListener {
                 int ret = fileopen.showDialog(null, "Открыть файл");
                 if (ret == JFileChooser.APPROVE_OPTION) {
                     File file = fileopen.getSelectedFile();
-                    iccgui.setFileLabel(file.getAbsolutePath());
-                    iccgui.setFilePath(file.getAbsolutePath());
-                    icc.readFileToString(iccgui.getFilePath());
-//                    icc.setSourceTxt(icc.getSourceTxt());
-                    iccgui.setTextArea(icc.getSourceTxt());
-                    iccgui.setKeyLabel("Set key.");
+                    iccGUI.setFileLabel(file.getAbsolutePath());
+                    iccGUI.setFilePath(file.getAbsolutePath());
+                    iccConsole.readFileToSourceTxt(iccGUI.getFilePath());
+                    iccGUI.setTextArea(iccConsole.getSourceTxt());
+                    iccGUI.setKeyLabel("Set key.");
                 }
     }
 }

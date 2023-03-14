@@ -3,6 +3,7 @@ package cryptoanizer;
 import javax.swing.*;
 
 public interface ICryptoanizerCaesarGUI {
+    void mainWindow();
     void  setFileLabel(String filename);
     void setTextArea(String text);
 //    void setLoadedTxt(String txt);

@@ -4,25 +4,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ResetButtonPress implements ActionListener {
-    private ICryptoanizerCaesarGUI iccgui;
-    private CryptoanizerCaesar cryptoanizerCaesar = new CryptoanizerCaesar();
+    private ICryptoanizerCaesarGUI iccGUI;
+    private ICryptoanizerCaesarConsole iccConsole;
 
-    public ResetButtonPress(ICryptoanizerCaesarGUI iccgui) {
-        this.iccgui = iccgui;
+    public ResetButtonPress(ICryptoanizerCaesarGUI iccGUI) {
+        this.iccGUI = iccGUI;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        iccgui.setTextArea("");
-        iccgui.setFileLabel("Select a file for processing.");
-        iccgui.setKeyLabel("Set key.");
-        iccgui.setKeyField("");
-        iccgui.setReferenceLabel("Select the file for the sample.");
+        iccGUI.setTextArea("");
+        iccGUI.setFileLabel("Select a file for processing.");
+        iccGUI.setKeyLabel("Set key.");
+        iccGUI.setKeyField("");
+        iccGUI.setReferenceLabel("Select the file for the sample.");
 //        iccgui.setLoadedTxt("");
 //        iccgui.setReferenceTxt("");
-        iccgui.setFilePath("");
-        iccgui.setReferencePath("");
-        cryptoanizerCaesar.setSourceTxt("");
-        cryptoanizerCaesar.setEncodeTxt("");
-        cryptoanizerCaesar.setReferenceTxt("");
+        iccGUI.setFilePath("");
+        iccGUI.setReferencePath("");
+        iccConsole.clear();
     }
 }

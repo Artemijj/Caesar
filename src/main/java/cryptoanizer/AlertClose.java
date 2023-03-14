@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AlertClose implements ActionListener {
-    private ICryptoanizerCaesarGUI iccgui;
+    private ICryptoanizerCaesarGUI iccGUI;
 
-    public AlertClose(ICryptoanizerCaesarGUI iccgui) {
-        this.iccgui = iccgui;
+    public AlertClose(ICryptoanizerCaesarGUI iccGUI) {
+        this.iccGUI = iccGUI;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        iccgui.getAlert().removeAll();
-        iccgui.getAlert().dispose();
+        iccGUI.getAlert().removeAll();
+        iccGUI.getAlert().dispose();
     }
 }

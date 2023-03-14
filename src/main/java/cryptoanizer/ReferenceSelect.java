@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 public class ReferenceSelect implements ActionListener {
-    public ICryptoanizerCaesarGUI iccgui;
-    public ICryptoanizerCaesar icc;//cryptoanizerCaesar = new CryptoanizerCaesar();
+    public ICryptoanizerCaesarGUI iccGUI;
+    public ICryptoanizerCaesarConsole iccConsole;//cryptoanizerCaesar = new CryptoanizerCaesar();
 
-    public ReferenceSelect(ICryptoanizerCaesarGUI iccgui) {
-        this.iccgui = iccgui;
+    public ReferenceSelect(ICryptoanizerCaesarGUI iccGUI) {
+        this.iccGUI = iccGUI;
     }
 
     @Override
@@ -19,10 +19,10 @@ public class ReferenceSelect implements ActionListener {
                 int ret = fileopen.showDialog(null, "Open file");
                 if (ret == JFileChooser.APPROVE_OPTION) {
                     File file = fileopen.getSelectedFile();
-                    iccgui.setReferenceLabel(file.getAbsolutePath());
-                    iccgui.setReferencePath(file.getAbsolutePath());
-                    icc.readFileToString(iccgui.getReferencePath());
-                    icc.setReferenceTxt(icc.getSourceTxt());
+                    iccGUI.setReferenceLabel(file.getAbsolutePath());
+                    iccGUI.setReferencePath(file.getAbsolutePath());
+                    iccConsole.readFileToSourceTxt(iccGUI.getReferencePath());
+                    iccConsole.setReferenceTxt(iccConsole.getSourceTxt());
                 }
     }
 }
