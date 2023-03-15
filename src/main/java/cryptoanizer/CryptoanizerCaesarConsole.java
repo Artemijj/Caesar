@@ -6,97 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
-    private static String alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? ";
-//    private static String errorMessage =
-//        "Проверьте правильность введённых параметров.\n" +
-//        "Для получения справки введите -help";
-//    private static String helpMessage =
-//        "-c <filename>  - Копирование файла.\n" +
-//        "-e <key> <filename>  - Шифрование файла (0 < key <= 40).\n" +
-//        "-d <key> <filename>  - Дешифрование файла (0 < key <= 40).\n" +
-//        "-b <filename>  - Дешифрование файла (bruteforce).\n" +
-//        "-s <cryptFilename> <referenceFilename>  - Дешифрование файла методом статистического анализа";
+    private String alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? ";
     private String sourceTxt;
     private String encodeTxt;
+    private String loadedTxt;
     private String referenceTxt;
-    private ICryptoanizerCaesarGUI iccgui;
-
-//    public static void main(String[] args) {
-//        CryptoanizerCaesarConsole cryptC = new CryptoanizerCaesarConsole();
-//        if (args.length == 0) {
-//            System.err.println(errorMessage);
-//            System.exit(1);
-//        }
-//        String progKey = args[0];
-//        if (progKey.equals("-c")) {
-//            if (args.length != 2) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            String file = args[1];
-//            cryptC.readFileToSourceTxt(file);
-//            cryptC.saveEncodeTxtToFile(cryptC.sourceTxt);
-//        } else if (progKey.equals("-e")) {
-//            if (args.length != 3) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            int encryptKey = Integer.parseInt(args[1]);
-//            if (encryptKey >= alphabet.length()) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            String file = args[2];
-//            cryptC.readFileToSourceTxt(file);
-//            cryptC.encryptTxt(encryptKey);
-//            cryptC.saveEncodeTxtToFile(cryptC.encodeTxt);
-//        } else if (progKey.equals("-d")) {
-//            if (args.length != 3) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            int encryptKey = Integer.parseInt(args[1]);
-//            if (encryptKey >= alphabet.length()) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            String file = args[2];
-//            cryptC.readFileToSourceTxt(file);
-//            cryptC.encryptTxt(-Math.abs(encryptKey));
-//            cryptC.saveEncodeTxtToFile(cryptC.encodeTxt);
-//        } else if (progKey.equals("-b")) {
-//            if (args.length != 2) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            String file = args[1];
-//            cryptC.readFileToSourceTxt(file);
-//            int key = cryptC.bruteForceSourceTxt(cryptC.sourceTxt);
-//            cryptC.encryptTxt(key);
-//            cryptC.saveEncodeTxtToFile(cryptC.encodeTxt);
-//        } else if (progKey.equals("-s")) {
-//            if (args.length != 3) {
-//                System.err.println(errorMessage);
-//                System.exit(1);
-//            }
-//            String cryptFile = args[1];
-//            String planeFile = args[2];
-//            cryptC.readFileToSourceTxt(cryptFile);
-//            cryptC.encodeTxt = cryptC.sourceTxt;
-//            cryptC.readFileToSourceTxt(planeFile);
-//            cryptC.referenceTxt = cryptC.sourceTxt;
-//            int key = cryptC.statAnalizSourceTxtByReferenceTxt(cryptC.encodeTxt, cryptC.referenceTxt);
-//            cryptC.encryptTxt(-key);
-//            cryptC.saveEncodeTxtToFile(cryptC.encodeTxt);
-//        } else if (progKey.equals("-g")) {
-//            CryptoanizerCaesarGUI ccg = new CryptoanizerCaesarGUI();
-//            ccg.mainWindow();
-//        } else if (progKey.equals("-help")) {
-//            System.out.println(helpMessage);
-//        } else {
-//            System.out.println(helpMessage);
-//        }
-//    }
 
     public void readFileToSourceTxt(String fileName) {
         String res = null;
@@ -109,10 +23,10 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
         sourceTxt = res;
     }
 
-    public void encryptTxt(int key) {
+    public void encryptTxt(String text, int key) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < sourceTxt.length(); i++) {
-            char ch = sourceTxt.charAt(i);
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
             int chIndex = alphabet.indexOf(ch);
             if (chIndex != -1) {
                 if (chIndex + key < 0) {
@@ -137,7 +51,7 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
         int maxIndex = 0;
         for (int i = 0; i < alphabet.length(); i++) {
             int count = 0;
-            encryptTxt(-i);
+            encryptTxt(text, -i);
             String bf = encodeTxt;
             int dot = bf.split(". ", -1).length - 1;
             int comma = bf.split(", ", -1).length - 1;
@@ -158,9 +72,9 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
         return key;
     }
 
-    public void saveEncodeTxtToFile(String text) {
+    public void saveTxtToFile(String fileName, String text) {
         try {
-            Files.writeString(Path.of("OutputFile.txt"), text);
+            Files.writeString(Path.of(fileName), text);
         } catch (IOException e) {
             System.err.println("Ошибка...");
             System.exit(1);
@@ -193,10 +107,6 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
         return encodeTxt;
     }
 
-//    public void setSourceTxt(String text) {
-//        sourceTxt = text;
-//    }
-
     public void setEncodeTxt(String text) {
         encodeTxt = text;
     }
@@ -217,5 +127,13 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
 
     public String getAlphabet() {
         return alphabet;
+    }
+
+    public void setLoadedTxt(String text) {
+        loadedTxt = text;
+    }
+
+    public String getLoadedTxt() {
+        return loadedTxt;
     }
 }

@@ -5,14 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class FileSelect implements ActionListener {
+public class SourceFileSelect implements ActionListener {
 
     private ICryptoanizerCaesarConsole iccConsole;
     private ICryptoanizerCaesarGUI iccGUI;
 
-    public FileSelect(ICryptoanizerCaesarGUI iccGUI) {
+    public SourceFileSelect(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarConsole iccConsole) {
         this.iccGUI = iccGUI;
-//        this.icc = icc;
+        this.iccConsole = iccConsole;
     }
 
     @Override
@@ -24,7 +24,9 @@ public class FileSelect implements ActionListener {
                     iccGUI.setFileLabel(file.getAbsolutePath());
                     iccGUI.setFilePath(file.getAbsolutePath());
                     iccConsole.readFileToSourceTxt(iccGUI.getFilePath());
-                    iccGUI.setTextArea(iccConsole.getSourceTxt());
+                    iccConsole.setLoadedTxt(iccConsole.getSourceTxt());
+                    iccGUI.setTextAreaIn(iccConsole.getSourceTxt());
+                    iccConsole.saveTxtToFile("input.txt", iccConsole.getSourceTxt());
                     iccGUI.setKeyLabel("Set key.");
                 }
     }

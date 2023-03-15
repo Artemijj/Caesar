@@ -11,11 +11,9 @@ public class CryptoanizerCaesar {
             "-b <filename>  - Дешифрование файла (bruteforce).\n" +
             "-s <cryptFilename> <referenceFilename>  - Дешифрование файла методом статистического анализа";
 
-    private static ICryptoanizerCaesarConsole cryptoanizerCaesarConsole = new CryptoanizerCaesarConsole();
-    private static ICryptoanizerCaesarGUI cryptoanizerCaesarGUI = new CryptoanizerCaesarGUI();
-
     public static void main(String[] args) {
-//        CryptoanizerCaesarConsole cryptC = new CryptoanizerCaesarConsole();
+        ICryptoanizerCaesarConsole iccConsole = new CryptoanizerCaesarConsole();
+        ICryptoanizerCaesarGUI iccGUI = new CryptoanizerCaesarGUI(iccConsole);
         if (args.length == 0) {
             System.err.println(errorMessage);
             System.exit(1);
@@ -27,46 +25,56 @@ public class CryptoanizerCaesar {
                 System.exit(1);
             }
             String file = args[1];
-            cryptoanizerCaesarConsole.readFileToSourceTxt(file);
-            cryptoanizerCaesarConsole.saveEncodeTxtToFile(cryptoanizerCaesarConsole.getSourceTxt());
+            iccConsole.readFileToSourceTxt(file);
+            iccConsole.saveTxtToFile("copy.txt", iccConsole.getSourceTxt());
         } else if (progKey.equals("-e")) {
             if (args.length != 3) {
                 System.err.println(errorMessage);
                 System.exit(1);
             }
-            int encryptKey = Integer.parseInt(args[1]);
-            if (encryptKey >= cryptoanizerCaesarConsole.getAlphabet().length()) {
+            try {
+                int encryptKey = Integer.parseInt(args[1]);
+                if (encryptKey >= iccConsole.getAlphabet().length()) {
+                    System.err.println(errorMessage);
+                    System.exit(1);
+                }
+                String file = args[2];
+                iccConsole.readFileToSourceTxt(file);
+                iccConsole.encryptTxt(iccConsole.getSourceTxt(), encryptKey);
+                iccConsole.saveTxtToFile("crypt.txt", iccConsole.getEncodeTxt());
+            } catch (NumberFormatException e) {
                 System.err.println(errorMessage);
                 System.exit(1);
             }
-            String file = args[2];
-            cryptoanizerCaesarConsole.readFileToSourceTxt(file);
-            cryptoanizerCaesarConsole.encryptTxt(encryptKey);
-            cryptoanizerCaesarConsole.saveEncodeTxtToFile(cryptoanizerCaesarConsole.getEncodeTxt());
         } else if (progKey.equals("-d")) {
             if (args.length != 3) {
                 System.err.println(errorMessage);
                 System.exit(1);
             }
-            int encryptKey = Integer.parseInt(args[1]);
-            if (encryptKey >= cryptoanizerCaesarConsole.getAlphabet().length()) {
+            try {
+                int encryptKey = Integer.parseInt(args[1]);
+                if (encryptKey >= iccConsole.getAlphabet().length()) {
+                    System.err.println(errorMessage);
+                    System.exit(1);
+                }
+                String file = args[2];
+                iccConsole.readFileToSourceTxt(file);
+                iccConsole.encryptTxt(iccConsole.getSourceTxt(), -Math.abs(encryptKey));
+                iccConsole.saveTxtToFile("decrypt.txt", iccConsole.getEncodeTxt());
+            } catch (NumberFormatException e) {
                 System.err.println(errorMessage);
                 System.exit(1);
             }
-            String file = args[2];
-            cryptoanizerCaesarConsole.readFileToSourceTxt(file);
-            cryptoanizerCaesarConsole.encryptTxt(-Math.abs(encryptKey));
-            cryptoanizerCaesarConsole.saveEncodeTxtToFile(cryptoanizerCaesarConsole.getEncodeTxt());
         } else if (progKey.equals("-b")) {
             if (args.length != 2) {
                 System.err.println(errorMessage);
                 System.exit(1);
             }
             String file = args[1];
-            cryptoanizerCaesarConsole.readFileToSourceTxt(file);
-            int key = cryptoanizerCaesarConsole.bruteForceSourceTxt(cryptoanizerCaesarConsole.getSourceTxt());
-            cryptoanizerCaesarConsole.encryptTxt(key);
-            cryptoanizerCaesarConsole.saveEncodeTxtToFile(cryptoanizerCaesarConsole.getEncodeTxt());
+            iccConsole.readFileToSourceTxt(file);
+            int key = iccConsole.bruteForceSourceTxt(iccConsole.getSourceTxt());
+            iccConsole.encryptTxt(iccConsole.getSourceTxt(), key);
+            iccConsole.saveTxtToFile("decrypt.txt", iccConsole.getEncodeTxt());
         } else if (progKey.equals("-s")) {
             if (args.length != 3) {
                 System.err.println(errorMessage);
@@ -74,15 +82,15 @@ public class CryptoanizerCaesar {
             }
             String cryptFile = args[1];
             String planeFile = args[2];
-            cryptoanizerCaesarConsole.readFileToSourceTxt(cryptFile);
-            cryptoanizerCaesarConsole.setEncodeTxt(cryptoanizerCaesarConsole.getSourceTxt());
-            cryptoanizerCaesarConsole.readFileToSourceTxt(planeFile);
-            cryptoanizerCaesarConsole.setReferenceTxt(cryptoanizerCaesarConsole.getSourceTxt());
-            int key = cryptoanizerCaesarConsole.statAnalizSourceTxtByReferenceTxt(cryptoanizerCaesarConsole.getEncodeTxt(), cryptoanizerCaesarConsole.getReferenceTxt());
-            cryptoanizerCaesarConsole.encryptTxt(-key);
-            cryptoanizerCaesarConsole.saveEncodeTxtToFile(cryptoanizerCaesarConsole.getEncodeTxt());
+            iccConsole.readFileToSourceTxt(planeFile);
+            iccConsole.setReferenceTxt(iccConsole.getSourceTxt());
+            iccConsole.readFileToSourceTxt(cryptFile);
+            iccConsole.setEncodeTxt(iccConsole.getSourceTxt());
+            int key = iccConsole.statAnalizSourceTxtByReferenceTxt(iccConsole.getEncodeTxt(), iccConsole.getReferenceTxt());
+            iccConsole.encryptTxt(iccConsole.getSourceTxt(), -key);
+            iccConsole.saveTxtToFile("decrypt.txt", iccConsole.getEncodeTxt());
         } else if (progKey.equals("-g")) {
-            cryptoanizerCaesarGUI.mainWindow();
+            iccGUI.mainWindow();
         } else if (progKey.equals("-help")) {
             System.out.println(helpMessage);
         } else {

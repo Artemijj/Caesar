@@ -5,12 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class ReferenceSelect implements ActionListener {
+public class ReferenceFileSelect implements ActionListener {
     public ICryptoanizerCaesarGUI iccGUI;
-    public ICryptoanizerCaesarConsole iccConsole;//cryptoanizerCaesar = new CryptoanizerCaesar();
+    public ICryptoanizerCaesarConsole iccConsole;
 
-    public ReferenceSelect(ICryptoanizerCaesarGUI iccGUI) {
+    public ReferenceFileSelect(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarConsole iccConsole) {
         this.iccGUI = iccGUI;
+        this.iccConsole = iccConsole;
     }
 
     @Override
@@ -23,6 +24,8 @@ public class ReferenceSelect implements ActionListener {
                     iccGUI.setReferencePath(file.getAbsolutePath());
                     iccConsole.readFileToSourceTxt(iccGUI.getReferencePath());
                     iccConsole.setReferenceTxt(iccConsole.getSourceTxt());
+                    iccConsole.saveTxtToFile("reference.txt", iccConsole.getSourceTxt());
+                    iccGUI.setKeyLabel("Set key.");
                 }
     }
 }
