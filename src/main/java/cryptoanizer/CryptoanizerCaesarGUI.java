@@ -20,8 +20,11 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
     private JButton statanalysis;
     private JButton reset;
     private JPanel textPanel;
+    private JPanel areaPanel;
     private JTextArea textAreaIn;
     private JTextArea textAreaOut;
+    private JLabel areaLabelIn;
+    private JLabel areaLabelOut;
     private JLabel fileLabel;
     private JButton fileLabelButton;
     private JLabel keyLabel;
@@ -70,10 +73,12 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.X_AXIS));
 
         textAreaIn = new JTextArea(20, 40);
-        configureTextArea(textAreaIn);
+        areaLabelIn = new JLabel("In");
+        configureTextArea(textAreaIn, areaLabelIn);
 
         textAreaOut = new JTextArea(20, 40);
-        configureTextArea(textAreaOut);
+        areaLabelOut = new JLabel("Out");
+        configureTextArea(textAreaOut, areaLabelOut);
 
         fileLabel = new JLabel("Select a file for processing.");
         fileLabel.setPreferredSize(new Dimension(227, fileLabel.getPreferredSize().height));
@@ -182,10 +187,14 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
         JOptionPane.showMessageDialog(window, alert);
     }
 
-    private void configureTextArea(JTextArea textArea) {
+    private void configureTextArea(JTextArea textArea, JLabel areaLabel) {
+        areaPanel = new JPanel();
+        areaPanel.setLayout(new BoxLayout(areaPanel, BoxLayout.Y_AXIS));
+        areaLabel.setAlignmentX(CENTER_ALIGNMENT);
+        areaPanel.add(areaLabel);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-//        textAreaOut.setAlignmentX(LEFT_ALIGNMENT);
-        textPanel.add(new JScrollPane(textArea));
+        areaPanel.add(new JScrollPane(textArea));
+        textPanel.add(areaPanel);
     }
 }
