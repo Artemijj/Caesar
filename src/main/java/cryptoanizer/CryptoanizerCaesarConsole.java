@@ -17,8 +17,10 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
         try {
             res = Files.readString(Paths.get(fileName)).toUpperCase();
         } catch (IOException e) {
-            System.err.println("Такого файла нет...");
-            System.exit(1);
+            System.err.println("No such file...");
+            System.out.println("Program failed.");
+//            System.exit(1);
+            System.out.println("Press `Ctrl C` for exit.");
         }
         sourceTxt = res;
     }
