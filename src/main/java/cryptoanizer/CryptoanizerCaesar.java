@@ -72,7 +72,7 @@ public class CryptoanizerCaesar {
             }
             String file = args[1];
             iccConsole.readFileToSourceTxt(file);
-            int key = iccConsole.bruteForceSourceTxt(iccConsole.getSourceTxt());
+            int key = iccConsole.bruteForceSourceTxt();
             iccConsole.encryptTxt(iccConsole.getSourceTxt(), key);
             iccConsole.saveTxtToFile("decrypt.txt", iccConsole.getEncodeTxt());
         } else if (progKey.equals("-s")) {
@@ -91,6 +91,7 @@ public class CryptoanizerCaesar {
             iccConsole.saveTxtToFile("decrypt.txt", iccConsole.getEncodeTxt());
         } else if (progKey.equals("-g")) {
             iccGUI.mainWindow();
+            iccConsole.setGuiMark(true);
         } else if (progKey.equals("-help")) {
             System.out.println(helpMessage);
         } else {

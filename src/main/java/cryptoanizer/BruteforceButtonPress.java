@@ -15,7 +15,7 @@ public class BruteforceButtonPress implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         iccConsole.readFileToSourceTxt(iccGUI.getFilePath());
-        key = iccConsole.bruteForceSourceTxt(iccConsole.getSourceTxt());
+        key = iccConsole.bruteForceSourceTxt();
         iccConsole.encryptTxt(iccConsole.getSourceTxt(), -key);
         iccConsole.saveTxtToFile("decrypt.txt", iccConsole.getEncodeTxt());
         iccGUI.setTextAreaOut(iccConsole.getEncodeTxt());

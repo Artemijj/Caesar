@@ -3,7 +3,7 @@ package cryptoanizer;
 public interface ICryptoanizerCaesarConsole {
     void readFileToSourceTxt(String fileName);
     void encryptTxt(String text, int key);
-    int bruteForceSourceTxt(String text);
+    int bruteForceSourceTxt();
     int statAnalizSourceTxtByReferenceTxt(String cryptTxt, String planeTxt);
     void saveTxtToFile(String fileName, String text);
     String getSourceTxt();
@@ -15,4 +15,5 @@ public interface ICryptoanizerCaesarConsole {
     String getAlphabet();
     void setLoadedTxt(String text);
     String getLoadedTxt();
+    void setGuiMark(boolean mark);
 }

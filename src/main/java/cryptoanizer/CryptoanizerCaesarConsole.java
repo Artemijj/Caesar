@@ -11,6 +11,7 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
     private String encodeTxt;
     private String loadedTxt;
     private String referenceTxt;
+    private boolean guiMark = false;
 
     public void readFileToSourceTxt(String fileName) {
         String res = null;
@@ -18,9 +19,9 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
             res = Files.readString(Paths.get(fileName)).toUpperCase();
         } catch (IOException e) {
             System.err.println("No such file...");
-            System.out.println("Program failed.");
-//            System.exit(1);
-            System.out.println("Press `Ctrl C` for exit.");
+            if (guiMark == false) {
+                System.exit(1);
+            }
         }
         sourceTxt = res;
     }
@@ -48,12 +49,12 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
         encodeTxt = sb.toString();
     }
 
-    public int bruteForceSourceTxt(String text) {
+    public int bruteForceSourceTxt() {
         int max = 0;
         int maxIndex = 0;
         for (int i = 0; i < alphabet.length(); i++) {
             int count = 0;
-            encryptTxt(text, -i);
+            encryptTxt(sourceTxt, -i);
             String bf = encodeTxt;
             int dot = bf.split(". ", -1).length - 1;
             int comma = bf.split(", ", -1).length - 1;
@@ -137,5 +138,9 @@ public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
 
     public String getLoadedTxt() {
         return loadedTxt;
+    }
+
+    public void setGuiMark(boolean mark) {
+        guiMark = mark;
     }
 }
