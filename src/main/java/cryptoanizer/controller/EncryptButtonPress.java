@@ -1,14 +1,17 @@
-package cryptoanizer;
+package cryptoanizer.controller;
+
+import cryptoanizer.view.ICryptoanizerCaesarGUI;
+import cryptoanizer.model.ICryptoanizerCaesarModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EncryptButtonPress implements ActionListener {
     private ICryptoanizerCaesarGUI iccGUI;
-    private ICryptoanizerCaesarConsole iccConsole;
+    private ICryptoanizerCaesarModel iccConsole;
     private int key;
 
-    public EncryptButtonPress(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarConsole iccConsole) {
+    public EncryptButtonPress(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarModel iccConsole) {
         this.iccGUI = iccGUI;
         this.iccConsole = iccConsole;
     }
@@ -22,6 +25,7 @@ public class EncryptButtonPress implements ActionListener {
                 iccConsole.encryptTxt(iccConsole.getSourceTxt(), key);
                 iccConsole.saveTxtToFile("crypt.txt", iccConsole.getEncodeTxt());
                 iccGUI.setTextAreaOut(iccConsole.getEncodeTxt());
+                iccGUI.resetSaveOutputButton(true);
             } else {
 //            iccgui.alertWindow();
                 iccGUI.alertDialog("The key can be a whole positive number from 1 to 40.");

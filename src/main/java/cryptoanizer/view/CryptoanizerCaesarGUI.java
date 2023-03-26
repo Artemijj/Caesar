@@ -1,4 +1,7 @@
-package cryptoanizer;
+package cryptoanizer.view;
+
+import cryptoanizer.model.ICryptoanizerCaesarModel;
+import cryptoanizer.controller.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,18 +10,20 @@ import java.awt.event.ActionListener;
 import static java.awt.Component.*;
 
 public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
-    private static ICryptoanizerCaesarConsole iccConsole;
+    private static ICryptoanizerCaesarModel iccConsole;
 
-    CryptoanizerCaesarGUI(ICryptoanizerCaesarConsole iccConsole) {
+    public CryptoanizerCaesarGUI(ICryptoanizerCaesarModel iccConsole) {
         this.iccConsole = iccConsole;
     }
 
     private JFrame window;
+    private JToolBar tb;
     private JButton encrypt;
     private JButton decrypt;
     private JButton bruteforce;
     private JButton statanalysis;
     private JButton reset;
+    private JButton saveOutput;
     private JPanel textPanel;
     private JPanel areaPanel;
     private JTextArea textAreaIn;
@@ -33,9 +38,8 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
     private JButton referenceLabelButton;
     private String filePath;
     private String referencePath;
-    private JFrame alert;
     private JPanel gridPanel;
-    private Image image = Toolkit.getDefaultToolkit().getImage("Caesar.jpg");
+    private Image image = Toolkit.getDefaultToolkit().getImage("icon/Caesar.jpg");
 
     public static void main(String[] args) {
         CryptoanizerCaesarGUI ccg = new CryptoanizerCaesarGUI(iccConsole);
@@ -51,20 +55,34 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-//        mainPanel.setAlignmentX(LEFT_ALIGNMENT);
 
         JPanel toolPanel = new JPanel();
         toolPanel.setLayout(new BoxLayout(toolPanel, BoxLayout.Y_AXIS));
-//        toolPanel.setAlignmentX(LEFT_ALIGNMENT);
-        JToolBar tb = new JToolBar();
+
+        tb = new JToolBar();
         tb.setFloatable(false);
         tb.setAlignmentX(LEFT_ALIGNMENT);
 
-        tb.add(makeButton("Encrypt", new EncryptButtonPress(this, iccConsole)));
-        tb.add(makeButton("Decrypt", new DecryptButtonPress(this, iccConsole)));
-        tb.add(makeButton("Bruteforce", new BruteforceButtonPress(this, iccConsole)));
-        tb.add(makeButton("Statanalysis", new StatButtonPress(this, iccConsole)));
-        tb.add(makeButton("Reset", new ResetButtonPress(this, iccConsole)));
+        encrypt = new JButton("Encrypt");
+        buttonProperties(encrypt, new EncryptButtonPress(this, iccConsole), false);
+
+        decrypt = new JButton("Decrypt");
+        buttonProperties(decrypt, new DecryptButtonPress(this, iccConsole), false);
+
+        bruteforce = new JButton("Bruteforce");
+        buttonProperties(bruteforce, new BruteforceButtonPress(this, iccConsole), false);
+
+        statanalysis = new JButton("Statanalysis");
+        buttonProperties(statanalysis, new StatButtonPress(this, iccConsole), false);
+
+        reset = new JButton("Reset");
+        buttonProperties(reset, new ResetButtonPress(this, iccConsole), false);
+
+        tb.addSeparator();
+
+        saveOutput = new JButton("Save output");
+        buttonProperties(saveOutput, new SaveOutputButtonPress(this, iccConsole), false);
+
 
         toolPanel.add(tb);
         toolPanel.add(Box.createVerticalStrut(5));
@@ -125,6 +143,10 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
         fileLabel.setText(filename);
     }
 
+    public String getFileLabel() {
+        return fileLabel.getText();
+    }
+
     public void setTextAreaIn(String text) {
         textAreaIn.setText(text);
     }
@@ -135,6 +157,10 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
 
     public void setReferenceLabel(String reference) {
         referenceLabel.setText(reference);
+    }
+
+    public String getReferenceLabel() {
+        return referenceLabel.getText();
     }
 
     public String getKeyValue() {
@@ -157,10 +183,6 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
         return referencePath;
     }
 
-    public JFrame getAlert() {
-        return alert;
-    }
-
     public void setKeyField(String text) {
         keyField.setText(text);
     }
@@ -169,10 +191,10 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
         keyLabel.setText(text);
     }
 
-    private JButton makeButton(String name, ActionListener action) {
-        JButton button = new JButton(name);
+    private void buttonProperties(JButton button, ActionListener action, boolean bool) {
         button.addActionListener(action);
-        return button;
+        button.setEnabled(bool);
+        tb.add(button);
     }
 
     private void addGridPanel(JComponent component) {
@@ -196,5 +218,29 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
         textArea.setWrapStyleWord(true);
         areaPanel.add(new JScrollPane(textArea));
         textPanel.add(areaPanel);
+    }
+
+    public void resetEncryptButton(boolean bool) {
+        encrypt.setEnabled(bool);
+    }
+
+    public void resetDecryptButton(boolean bool) {
+        decrypt.setEnabled(bool);
+    }
+
+    public void resetBruteforceButton(boolean bool) {
+        bruteforce.setEnabled(bool);
+    }
+
+    public void resetStatanalysisButton(boolean bool) {
+        statanalysis.setEnabled(bool);
+    }
+
+    public void resetResetButton(boolean bool) {
+        reset.setEnabled(bool);
+    }
+
+    public void resetSaveOutputButton(boolean bool) {
+        saveOutput.setEnabled(bool);
     }
 }

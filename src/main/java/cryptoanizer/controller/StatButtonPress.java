@@ -1,14 +1,17 @@
-package cryptoanizer;
+package cryptoanizer.controller;
+
+import cryptoanizer.view.ICryptoanizerCaesarGUI;
+import cryptoanizer.model.ICryptoanizerCaesarModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StatButtonPress implements ActionListener {
     private ICryptoanizerCaesarGUI iccGUI;
-    private ICryptoanizerCaesarConsole iccConsole;
+    private ICryptoanizerCaesarModel iccConsole;
     private int key;
 
-    public StatButtonPress(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarConsole iccConsole) {
+    public StatButtonPress(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarModel iccConsole) {
         this.iccGUI = iccGUI;
         this.iccConsole = iccConsole;
     }
@@ -20,5 +23,6 @@ public class StatButtonPress implements ActionListener {
         iccGUI.setTextAreaOut(iccConsole.getEncodeTxt());
         iccGUI.setKeyField(String.valueOf(key));
         iccGUI.setKeyLabel("Founded key -");
+        iccGUI.resetSaveOutputButton(true);
     }
 }

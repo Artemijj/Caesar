@@ -1,13 +1,16 @@
-package cryptoanizer;
+package cryptoanizer.controller;
+
+import cryptoanizer.view.ICryptoanizerCaesarGUI;
+import cryptoanizer.model.ICryptoanizerCaesarModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ResetButtonPress implements ActionListener {
     private ICryptoanizerCaesarGUI iccGUI;
-    private ICryptoanizerCaesarConsole iccConsole;
+    private ICryptoanizerCaesarModel iccConsole;
 
-    public ResetButtonPress(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarConsole iccConsole) {
+    public ResetButtonPress(ICryptoanizerCaesarGUI iccGUI, ICryptoanizerCaesarModel iccConsole) {
         this.iccGUI = iccGUI;
         this.iccConsole = iccConsole;
     }
@@ -22,5 +25,11 @@ public class ResetButtonPress implements ActionListener {
         iccGUI.setFilePath("");
         iccGUI.setReferencePath("");
         iccConsole.clear();
+        iccGUI.resetEncryptButton(false);
+        iccGUI.resetDecryptButton(false);
+        iccGUI.resetBruteforceButton(false);
+        iccGUI.resetStatanalysisButton(false);
+        iccGUI.resetResetButton(false);
+        iccGUI.resetSaveOutputButton(false);
     }
 }

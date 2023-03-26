@@ -1,11 +1,11 @@
-package cryptoanizer;
+package cryptoanizer.model;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class CryptoanizerCaesarConsole implements ICryptoanizerCaesarConsole {
+public class CryptoanizerCaesarModel implements ICryptoanizerCaesarModel {
     private String alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ.,\":-!? ";
     private String sourceTxt;
     private String encodeTxt;

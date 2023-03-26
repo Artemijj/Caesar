@@ -1,4 +1,7 @@
-package cryptoanizer;
+package cryptoanizer.model;
+
+import cryptoanizer.view.CryptoanizerCaesarGUI;
+import cryptoanizer.view.ICryptoanizerCaesarGUI;
 
 public class CryptoanizerCaesar {
     private static String errorMessage =
@@ -12,7 +15,7 @@ public class CryptoanizerCaesar {
             "-s <cryptFilename> <referenceFilename>  - Дешифрование файла методом статистического анализа";
 
     public static void main(String[] args) {
-        ICryptoanizerCaesarConsole iccConsole = new CryptoanizerCaesarConsole();
+        ICryptoanizerCaesarModel iccConsole = new CryptoanizerCaesarModel();
         ICryptoanizerCaesarGUI iccGUI = new CryptoanizerCaesarGUI(iccConsole);
         if (args.length == 0) {
             System.err.println(errorMessage);

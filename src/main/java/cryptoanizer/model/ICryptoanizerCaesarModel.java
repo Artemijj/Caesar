@@ -1,6 +1,6 @@
-package cryptoanizer;
+package cryptoanizer.model;
 
-public interface ICryptoanizerCaesarConsole {
+public interface ICryptoanizerCaesarModel {
     void readFileToSourceTxt(String fileName);
     void encryptTxt(String text, int key);
     int bruteForceSourceTxt();
