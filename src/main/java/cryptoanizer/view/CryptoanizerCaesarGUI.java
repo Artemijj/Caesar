@@ -39,7 +39,8 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
     private String filePath;
     private String referencePath;
     private JPanel gridPanel;
-    private Image image = Toolkit.getDefaultToolkit().getImage("icon/Caesar.jpg");
+//    private Image image = Toolkit.getDefaultToolkit().getImage("icon/Caesar.jpg");
+    private ImageIcon image = new ImageIcon(getClass().getClassLoader().getResource("icon/Caesar.jpg"));
 
     public static void main(String[] args) {
         CryptoanizerCaesarGUI ccg = new CryptoanizerCaesarGUI(iccConsole);
@@ -48,7 +49,7 @@ public class CryptoanizerCaesarGUI implements ICryptoanizerCaesarGUI{
 
     public void mainWindow() {
         window = new JFrame("Caesar");
-        window.setIconImage(image);
+        window.setIconImage(image.getImage());
         window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);
